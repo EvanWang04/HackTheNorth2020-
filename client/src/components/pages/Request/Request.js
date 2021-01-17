@@ -4,19 +4,10 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
 import ReactMapGL, {Marker} from "react-map-gl"
 import styled from 'styled-components';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import "./Request.css";
 
 function Request () {
-
-  const [viewport, setViewport] = useState({
-    latitude : 56.130367,
-    longitude : -106.346771,
-    width: '100vw',
-    height: '100vh',
-    zoom: 3
-  });
-
     return (
         
         <>
@@ -31,32 +22,28 @@ function Request () {
         </Router>
         </div>
 
-        
-
+    
         <LeftBox>
-            <Text>
-                <h1> Vaccine Type </h1>
-            </Text>
             <LeftBox2>
+                <h2> Vaccine Quantities</h2>
                 <VacType>
                     <Form>
                     {['checkbox'].map((type) => (
                         <div key={`inline-${type}`} className="mb-3">
                         <Form.Check inline label="Pifizer" type={type} id={`inline-${type}-1`} />
                         <Form.Check inline label="Updates" type={type} id={`inline-${type}-1`} />
-                        
                         </div>
                     ))}
                     </Form>
                 </VacType>
-                
                 <Form>
-                <Form.Group controlId="formBasicRange">
-                    <Form.Label>Range</Form.Label>
+                <Form.Group controlId="formBasicRange" style={{  
+                    width: "350px"
+                }}>
+                    <Form.Label>Quantity</Form.Label>
                     <Form.Control type="range" />
                 </Form.Group>
                 </Form>
-
             </LeftBox2>
         </LeftBox>
 
@@ -68,24 +55,26 @@ function Request () {
                 <Form.Group controlId="formBasicEmail"  >
                     <Form.Label>Comment</Form.Label>
                     <Form.Control type="email" placeholder="" style={{
-                    height: "720px"
+                    height: "218px",
+                    width: "500px"
                 }} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
-                <button variant="primary" type="submit">
+                
+                <Button variant="primary" type="submit">
                     Submit
-                </button>
+                </Button>
                 </Form>
                 
             </RightBox2>         
         </RightBox>
         </div>
         </>
-        
-    );
-    
+    );   
 }
+
+
 const LeftBox = styled.div`
     display: flex;
     flex-direction: column;

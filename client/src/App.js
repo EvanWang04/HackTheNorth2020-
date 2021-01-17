@@ -8,6 +8,8 @@ import ClinicDashboard from "./components/pages/ClinicDashboard/ClinicDashboard"
 import DisDashboard from "./components/pages/DisDashboard/DisDashboard";
 import StartDashboard from "./components/pages/StartDashboard/StartDashboard";
 import Request from "./components/pages/Request/Request";
+import TrackC from "./components/pages/Track/TrackC";
+
 import Footer from "./components/Footer";
 
 
@@ -117,7 +119,7 @@ class App extends Component {
     //     </Switch>
     //   </div>
     // </Router>
-    <Request />
+    <TrackC />
     );
   }
 }

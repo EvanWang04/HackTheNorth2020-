@@ -24,7 +24,7 @@ router.get("/supplierInfo/:address", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-    const hash = await contract.getTokens(req.params.address);
+    const hash = await contract.getTokens(req.body.address);
     const tokens = await get(hash);
 
     if (!tokens.includes(req.body.token)) {

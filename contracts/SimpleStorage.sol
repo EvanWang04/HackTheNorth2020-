@@ -10,16 +10,16 @@ contract SimpleStorage {
         token = "QmVkvoPGi9jvvuxsHDVJDgzPEzagBaWSZRYoRDzU244HjZ";
     }
     
-    // Keep this struct for ipfs
-    struct vaccineDelivery {
-        string locationTo;
-        string locationFrom;
-        address addressTo;
-        address addressFrom;
-        string sentOutDate;
-        string recivedDate;
-        uint amount;
-    }
+    // // Keep this struct for ipfs
+    // struct vaccineDelivery {
+    //     string locationTo;
+    //     string locationFrom;
+    //     address addressTo;
+    //     address addressFrom;
+    //     string sentOutDate;
+    //     string recivedDate;
+    //     uint vaccineCount;
+    // }
     
     struct clinic {
         string location;
@@ -41,6 +41,7 @@ contract SimpleStorage {
     
     mapping(address => clinic) clinics;
     mapping(address => distributor) distributors;
+    mapping(address => string) accountType;
     
     function isAdmin(address _address) public view returns (bool) {
         if (_address == admin) {
@@ -77,11 +78,13 @@ contract SimpleStorage {
     function createDistributor(address _address, string memory _longitude, string memory _latitude, string memory _location, uint _vaccineCount, uint _projectedVaccines, string memory _vaccineDeliveries) public {
         distributor memory tempDistributor = distributor(_location, _longitude, _latitude, _vaccineCount, _projectedVaccines, _vaccineDeliveries);
         distributors[_address] = tempDistributor;
+        accountType[_address] = "supplier";
     }
     
     function createClinic(address _address, string memory _longitude, string memory _latitude, string memory _location, uint _vaccineCount, string memory _requestVaccines, string memory _vaccineDeliveries) public {
         clinic memory tempClinic = clinic(_location, _longitude, _latitude, _vaccineCount, _requestVaccines, _vaccineDeliveries);
         clinics[_address] = tempClinic;
+        accountType[_address] = "clinic";
     }
     
     // mapping(address => bool) testMap;
@@ -99,8 +102,12 @@ contract SimpleStorage {
         distributors[_address] = tempDistributor;
     }
     
-    function manageShipment(address _addressFrom, address _addressTo, string memory _vaccineDeliveries) public {
-        clinics[_addressTo].vaccineDeliveries = _vaccineDeliveries;
-        distributors[_addressFrom].vaccineDeliveries = _vaccineDeliveries;
+    function manageShipment(address _addressFrom, address _addressTo, string memory _vaccineDeliveriesFrom, string memory _vaccineDeliveriesTo) public {
+        clinics[_addressTo].vaccineDeliveries = _vaccineDeliveriesTo;
+        distributors[_addressFrom].vaccineDeliveries = _vaccineDeliveriesFrom;
+    }
+    
+    function getAccountType(address _address) public view returns (string memory) {
+        return (accountType[_address]);
     }
 }

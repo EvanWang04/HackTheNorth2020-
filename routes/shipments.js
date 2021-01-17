@@ -72,6 +72,8 @@ router.post("/createShipment", async (req, res) => {
         deliveryId: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
     };
 
+    rawSupplierInfo.vaccineCount -= vaccineDelivery.vaccineCount
+
     rawClinicInfo.push(vaccineDelivery)
     rawSupplierInfo.push(vaccineDelivery)
 
@@ -103,10 +105,12 @@ router.post("/recieveShipment", async (req, res) => {
     clinicInfo.vaccineDeliveries[clinicIndex] = vaccineDelivery
     supplierInfo.vaccineDeliveries[supplierIndex] = vaccineDelivery
 
+    clinicInfo.vaccineCount += vaccineDelivery.vaccineCount
+
     clinicInfo.vaccineDeliveries = await (set(clinicInfo.vaccineDeliveries))
     supplierInfo.vaccineDeliveries = await (set(supplierInfo.vaccineDeliveries))
 
-    const result = await manageShipment(req.body.address, req.body.addressTo, rawSupplierInfo, rawClinicInfo)
+    const result = await manageShipment(req.body.address, req.body.addressTo, supplierInfo, clinicInfo)
     res.json(result)
 });
 

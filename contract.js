@@ -336,7 +336,12 @@ const abi = [
             },
             {
                 internalType: "string",
-                name: "_vaccineDeliveries",
+                name: "_vaccineDeliveriesFrom",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "_vaccineDeliveriesTo",
                 type: "string",
             },
         ],
@@ -346,8 +351,29 @@ const abi = [
         stateMutability: "nonpayable",
         type: "function",
     },
+    {
+        constant: true,
+        inputs: [
+            {
+                internalType: "address",
+                name: "_address",
+                type: "address",
+            },
+        ],
+        name: "getAccountType",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        payable: false,
+        stateMutability: "view",
+        type: "function",
+    },
 ];
-const address = "0x3e1D7EAb5E9882bcC20e164e9857B23fe720e291";
+const address = "0x78a6be740Df96E6c941cB39E1070889bA0914839";
 const url = "HTTP://127.0.0.1:7545";
 
 const customHttpProvider = new ethers.providers.JsonRpcProvider(url);
